@@ -1,0 +1,68 @@
+CREATE DATABASE IF NOT EXISTS demo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE demo_db;
+
+DROP TABLE IF EXISTS data_types_demo;
+
+CREATE DATABASE IF NOT EXISTS demo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE demo_db;
+
+CREATE TABLE user (
+                      id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                      name VARCHAR(100) NOT NULL,
+                      age INT,
+                      email VARCHAR(100)
+);
+
+
+CREATE TABLE data_types_demo (
+    -- 主键 ID
+                                 id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    -- 数值类型
+                                 tiny_int_val TINYINT,           -- 小整数（-128~127）
+                                 small_int_val SMALLINT,         -- 小整数（-32,768~32,767）
+                                 medium_int_val MEDIUMINT,       -- 中整数
+                                 int_val INT,                    -- 普通整数
+                                 big_int_val BIGINT,             -- 大整数
+
+                                 float_val FLOAT(10,2),          -- 单精度浮点数
+                                 double_val DOUBLE(10,2),        -- 双精度浮点数
+                                 decimal_val DECIMAL(10,2),      -- 精确小数（定点）
+
+    -- 字符串类型
+                                 char_val CHAR(10),              -- 定长字符串
+                                 varchar_val VARCHAR(100),       -- 变长字符串
+                                 text_val TEXT,                  -- 文本（最大 64KB）
+                                 longtext_val LONGTEXT,          -- 更长文本
+
+    -- 日期与时间
+                                 date_val DATE,                  -- 日期（YYYY-MM-DD）
+                                 time_val TIME,                  -- 时间（HH:MM:SS）
+                                 datetime_val DATETIME,          -- 日期 + 时间
+                                 timestamp_val TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 时间戳
+                                 year_val YEAR,                  -- 年份（YYYY）
+
+    -- 布尔与枚举
+                                 boolean_val BOOLEAN,            -- 布尔型（实质为 TINYINT(1)）
+                                 enum_val ENUM('SMALL', 'MEDIUM', 'LARGE'), -- 枚举类型
+                                 set_val SET('A', 'B', 'C'),     -- 集合类型
+
+    -- 二进制类型
+                                 blob_val BLOB                   -- 二进制数据（最大 64KB）
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+INSERT INTO data_types_demo (
+    tiny_int_val, small_int_val, medium_int_val, int_val, big_int_val,
+    float_val, double_val, decimal_val,
+    char_val, varchar_val, text_val, longtext_val,
+    date_val, time_val, datetime_val, year_val, boolean_val, enum_val, set_val, blob_val
+) VALUES (
+             1, 100, 10000, 123456, 9999999999,
+             12.34, 56.78, 90.12,
+             'abc', 'Hello World', 'Some text content', 'Very long text here...',
+             '2025-06-14', '14:30:00', '2025-06-14 14:30:00', 2025, TRUE, 'MEDIUM', 'A,B', 'test'
+         );
+
+

@@ -1,0 +1,19 @@
+
+server:
+  port: 8085    #本服务运行端口
+
+spring:
+  application:
+    name: mysql-model     #本服务名称
+  datasource:
+    url: jdbc:mysql://192.168.35.139:3306/demo_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf8    #mysql数据库IP地址
+    username: root      #数据库用户名
+    password: 123456    #数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      server-addr: 192.168.35.139:8848     #nacosIP地址及端口
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印 SQL 日志

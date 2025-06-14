@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加用户</title>
+</head>
+<body>
+<h2>添加用户</h2>
+<form id="userForm">
+    <label>ID: <input type="number" id="id" required></label><br><br>
+    <label>姓名: <input type="text" id="name" required></label><br><br>
+    <label>年龄: <input type="number" id="age" required></label><br><br>
+    <label>邮箱: <input type="email" id="email" required></label><br><br>
+    <button type="submit">提交</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // 获取用户输入的值
+        const user = {
+            id: parseInt(document.getElementById('id').value),
+            name: document.getElementById('name').value,
+            age: parseInt(document.getElementById('age').value),
+            email: document.getElementById('email').value
+        };
+
+        // 发送 POST 请求到后端的 /mysql/addUser 接口
+        fetch('http://127.0.0.1:8085/mysql/addUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user) // 转换为 JSON 字符串
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').textContent = '服务器响应: ' + data;
+            })
+            .catch(error => {
+                console.error('请求失败:', error);
+                document.getElementById('result').textContent = '请求失败，请检查控制台';
+            });
+    });
+</script>
+</body>
+</html>
